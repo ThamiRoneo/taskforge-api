@@ -26,6 +26,17 @@ router.get('/:id', (req, res) => {
         res.json(task);
 });
 
+router.get(`/:id/verify`, async (req, res) => {
+  const task = tasks.find(t => t.id === req.params.id);
+  if (!task) return res.status(404).json({ error: 'Task not found' });
+  try {
+    const result = await simulateCheck(task);
+    res.json(result);
+  } catch (error) {
+    res.status(422).json({ error: error.message });
+  }
+});
+
 router.post('/', (req, res) => {
   const { title } = req.body;
   const newTask = {
