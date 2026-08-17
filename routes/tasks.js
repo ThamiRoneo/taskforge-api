@@ -1,6 +1,9 @@
 const express = require('express');
 const { nanoid } = require('nanoid');
 const router = express.Router();
+const fs = require('fs/promises');
+const path = require('path');
+const DATA_PATH = path.join(__dirname, '../data/tasks.json');
 
 let tasks = [
   {
@@ -22,6 +25,15 @@ let tasks = [
       createdAt: new Date().toISOString(),
     },
 ];
+
+async function readTasks() {
+  const raw = await fs.readFile(DATA_PATH, 'utf8');
+  return JSON.parse(raw);
+}
+
+async function loadTasks() {
+  tasks = await readTasks(DATA_PATH, JSON.stringify(tasks, null, 2));
+}
 
 function simulateCheck(task) {
   return new Promise((resolve, reject) => {
