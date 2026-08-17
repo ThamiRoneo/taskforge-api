@@ -2,7 +2,26 @@ const express = require('express');
 const { nanoid } = require('nanoid');
 const router = express.Router();
 
-let tasks = [];
+let tasks = [
+  {
+      id: nanoid(),
+      title: 'Buy groceries',
+      completed: false,
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: nanoid(),
+      title: 'Finish TaskForge API',
+      completed: false,
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: nanoid(),
+      // no title — this is the deliberately broken task for Stage 2
+      completed: false,
+      createdAt: new Date().toISOString(),
+    },
+];
 
 function simulateCheck(task) {
   return new Promise((resolve, reject) => {
