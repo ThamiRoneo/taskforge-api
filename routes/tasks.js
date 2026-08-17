@@ -4,6 +4,17 @@ const router = express.Router();
 
 let tasks = [];
 
+function simulateCheck(task) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!task.title)
+        reject(new Error('Task is missing required field: title'));
+      else
+        resolve({ verified: true, taskId: task.id });
+    }, 1500);
+  });
+}
+
 router.get('/', (req, res) => {
     res.json(tasks);});
 
