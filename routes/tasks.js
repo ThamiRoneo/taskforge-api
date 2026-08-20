@@ -1,6 +1,6 @@
 const express = require('express');
 const { nanoid } = require('nanoid');
-const { readTasks, writeTasks } = require('../data/taskStore');
+const { readTasks, writeTasks } = require('../data/taskStore.js');
 
 const router = express.Router();
 
